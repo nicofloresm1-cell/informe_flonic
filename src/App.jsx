@@ -83,25 +83,25 @@ export default function App() {
   return (
     <div className="flex h-screen w-screen bg-slate-950 overflow-hidden">
       {/* PANEL IZQUIERDO - NAVEGACION FIJA */}
-      <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col overflow-hidden">
-        {/* Logo/Titulo */}
-        <div className="p-6 border-b border-slate-800">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-2xl">⚔️</span>
-            <div>
-              <h1 className="text-sm font-bold text-amber-300">INFORME FLONIC</h1>
-              <p className="text-xs text-slate-500">UTFSM 2024</p>
+      <aside className="w-56 flex-shrink-0 bg-slate-900 border-r border-slate-800 flex flex-col overflow-hidden">
+        {/* Logo/Titulo - Compacto */}
+        <div className="px-3 py-3 border-b border-slate-800 flex-shrink-0">
+          <div className="flex items-start gap-2">
+            <span className="text-lg flex-shrink-0">⚔️</span>
+            <div className="min-w-0">
+              <h1 className="text-[11px] font-bold text-amber-300 leading-tight">INFORME FLONIC</h1>
+              <p className="text-[9px] text-slate-500 leading-tight">UTFSM 2024</p>
             </div>
           </div>
         </div>
 
-        {/* Navegacion - Scroll interno */}
-        <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-2">
+        {/* Navegacion - Sin scroll */}
+        <nav className="flex-1 overflow-hidden px-2 py-2 space-y-1">
           {SECTIONS.map((section) => (
             <button
               key={section.id}
               onClick={() => setActiveSection(section.id)}
-              className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 group
+              className={`w-full text-left px-3 py-2 rounded transition-all duration-200 flex items-start gap-2 flex-shrink-0
                 ${activeSection === section.id
                   ? `bg-gradient-to-r ${section.id === 0 ? 'from-amber-500 to-amber-600' : 
                                        section.id === 1 ? 'from-blue-500 to-blue-600' :
@@ -113,30 +113,29 @@ export default function App() {
                                        'from-slate-600 to-slate-700'} text-slate-950 font-semibold shadow-lg`
                   : 'bg-slate-800/50 text-slate-300 hover:bg-slate-800 hover:text-slate-100'
                 }`}
+              title={section.title}
             >
-              <div className="flex items-center gap-3">
-                <span className="text-xl">{section.icon}</span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-semibold opacity-75">{section.number}</p>
-                  <p className="text-sm font-medium truncate">{section.title}</p>
-                </div>
+              <span className="text-[18px] flex-shrink-0">{section.icon}</span>
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] font-bold opacity-75 leading-tight">{section.number}</p>
+                <p className="text-xs font-medium truncate leading-tight">{section.title}</p>
               </div>
             </button>
           ))}
         </nav>
 
         {/* Footer */}
-        <div className="p-4 border-t border-slate-800 text-center text-xs text-slate-500">
-          <p>© 2024</p>
-          <p>Análisis Jurídico</p>
+        <div className="px-3 py-2 border-t border-slate-800 text-center text-[9px] text-slate-500 flex-shrink-0">
+          <p className="leading-tight">© 2024</p>
+          <p className="leading-tight">Análisis Jurídico</p>
         </div>
       </aside>
 
       {/* PANEL DERECHO - CONTENIDO */}
       <main className="flex-1 flex flex-col bg-slate-950 overflow-hidden">
-        {/* HEADER - Fijo */}
-        <header className="border-b border-slate-800 bg-gradient-to-r from-slate-900 to-slate-950 px-8 py-6 flex-shrink-0">
-          <div className="max-w-full">
+        {/* HEADER - Sticky */}
+        <header className="sticky top-0 z-40 border-b border-slate-800 bg-gradient-to-r from-slate-900 to-slate-950 px-8 py-6 flex-shrink-0">
+          <div>
             <div className="flex items-center gap-3 mb-4">
               <span className="text-3xl">{SECTIONS[activeSection].icon}</span>
               <div>
@@ -171,7 +170,7 @@ export default function App() {
 
         {/* CONTENIDO - Con scroll interno */}
         <div className="flex-1 overflow-y-auto px-8 py-6">
-          <div className="max-w-4xl">
+          <div className="max-w-none">
             <CurrentComponent />
           </div>
         </div>
