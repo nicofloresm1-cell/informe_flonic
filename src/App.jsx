@@ -1,211 +1,181 @@
-import { useState } from "react";
-import Resumen from "./pages/Resumen";
-import Marco from "./pages/Marco";
-import Delitos from "./pages/Delitos";
-import Comparacion from "./pages/Comparacion";
-import Responsabilidades from "./pages/Responsabilidades";
-import Datos from "./pages/Datos";
-import Conclusiones from "./pages/Conclusiones";
-import Bitacora from "./pages/Bitacora";
+import { useState } from 'react';
+import Resumen from './pages/Resumen';
+import Marco from './pages/Marco';
+import Delitos from './pages/Delitos';
+import Comparacion from './pages/Comparacion';
+import Responsabilidades from './pages/Responsabilidades';
+import Datos from './pages/Datos';
+import Conclusiones from './pages/Conclusiones';
+import Bitacora from './pages/Bitacora';
 
-const SECTIONS_NAV = [
-  { id: "home", title: "Inicio", icon: "🏠", component: null },
-  { id: "resumen", title: "01 — Resumen Ejecutivo", icon: "📋", component: Resumen },
-  { id: "marco", title: "02 — Marco Legal", icon: "⚖️", component: Marco },
-  { id: "delitos", title: "03 — Delitos Cometidos", icon: "⚠️", component: Delitos },
-  { id: "comparacion", title: "04 — Comparación Regulatoria", icon: "🔍", component: Comparacion },
-  { id: "responsabilidades", title: "05 — Responsabilidades", icon: "👥", component: Responsabilidades },
-  { id: "datos", title: "06 — Datos y Derechos ARCO", icon: "📊", component: Datos },
-  { id: "conclusiones", title: "07 — Conclusiones", icon: "✅", component: Conclusiones },
-  { id: "bitacora", title: "08 — Bitácora IA", icon: "🤖", component: Bitacora }
+const SECTIONS = [
+  {
+    id: 0,
+    number: '01',
+    title: 'Resumen Ejecutivo',
+    icon: '📋',
+    color: 'text-amber-400',
+    component: Resumen
+  },
+  {
+    id: 1,
+    number: '02',
+    title: 'Marco Legal',
+    icon: '⚖️',
+    color: 'text-blue-400',
+    component: Marco
+  },
+  {
+    id: 2,
+    number: '03',
+    title: 'Delitos Cometidos',
+    icon: '⚠️',
+    color: 'text-red-400',
+    component: Delitos
+  },
+  {
+    id: 3,
+    number: '04',
+    title: 'Comparación',
+    icon: '🔍',
+    color: 'text-purple-400',
+    component: Comparacion
+  },
+  {
+    id: 4,
+    number: '05',
+    title: 'Responsabilidades',
+    icon: '👥',
+    color: 'text-green-400',
+    component: Responsabilidades
+  },
+  {
+    id: 5,
+    number: '06',
+    title: 'Datos y ARCO',
+    icon: '📊',
+    color: 'text-cyan-400',
+    component: Datos
+  },
+  {
+    id: 6,
+    number: '07',
+    title: 'Conclusiones',
+    icon: '✅',
+    color: 'text-yellow-400',
+    component: Conclusiones
+  },
+  {
+    id: 7,
+    number: '08',
+    title: 'Bitácora IA',
+    icon: '🤖',
+    color: 'text-slate-400',
+    component: Bitacora
+  }
 ];
 
 export default function App() {
-  const [currentSection, setCurrentSection] = useState("home");
+  const [activeSection, setActiveSection] = useState(0);
 
-  const renderCurrentSection = () => {
-    const section = SECTIONS_NAV.find(s => s.id === currentSection);
-    
-    if (currentSection === "home") {
-      return <HomePage onNavigate={setCurrentSection} />;
-    }
-    
-    if (section && section.component) {
-      const Component = section.component;
-      return <Component />;
-    }
-    
-    return null;
-  };
+  const CurrentComponent = SECTIONS[activeSection].component;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100">
-      {/* HEADER STICKY */}
-      <header className="sticky top-0 z-40 border-b border-slate-700 bg-slate-950/90 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between mb-4">
-            <button
-              onClick={() => setCurrentSection("home")}
-              className="group flex items-center gap-2 hover:text-amber-400 transition-colors"
-            >
-              <span className="text-2xl">⚔️</span>
-              <div>
-                <h1 className="text-lg font-bold text-amber-300">Informe FLONIC</h1>
-                <p className="text-xs text-slate-500">UTFSM 2024</p>
-              </div>
-            </button>
-          </div>
-
-          {/* NAVEGACION HORIZONTAL */}
-          <nav className="flex overflow-x-auto gap-2 pb-2 scrollbar-hide">
-            {SECTIONS_NAV.map((section) => (
-              <button
-                key={section.id}
-                onClick={() => setCurrentSection(section.id)}
-                className={`whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 ${
-                  currentSection === section.id
-                    ? "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-lg"
-                    : "bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-slate-100"
-                }`}
-              >
-                <span>{section.icon}</span>
-                <span className="hidden sm:inline">{section.title}</span>
-              </button>
-            ))}
-          </nav>
-        </div>
-      </header>
-
-      {/* MAIN CONTENT */}
-      <main>{renderCurrentSection()}</main>
-
-      {/* FOOTER */}
-      <footer className="border-t border-slate-700 mt-20 py-8 bg-slate-950/50">
-        <div className="max-w-7xl mx-auto px-6 text-center text-sm text-slate-500">
-          <p>© 2024 Informe FLONIC • Análisis Jurídico de Ciberseguridad</p>
-          <p className="mt-2 text-xs text-slate-600">Filtración UTFSM — Octubre 2024</p>
-        </div>
-      </footer>
-    </div>
-  );
-}
-
-// COMPONENTE HOME PAGE
-function HomePage({ onNavigate }) {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      {/* HERO SECTION */}
-      <section className="relative py-24 px-6 overflow-hidden">
-        <div className="absolute inset-0 opacity-20 pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <div className="mb-8">
-            <span className="inline-block px-4 py-2 bg-amber-500/10 border border-amber-500/30 rounded-full text-amber-400 text-sm font-semibold mb-6">
-              Caso Estudiado: Filtración UTFSM 2024
-            </span>
-          </div>
-
-          <h1 className="text-6xl md:text-7xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500">
-            Informe FLONIC
-          </h1>
-
-          <p className="text-xl md:text-2xl text-slate-400 mb-4">
-            Análisis Jurídico Integral de la Filtración de Datos<br />
-            Universidad Técnica Federico Santa María
-          </p>
-
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <div className="text-center">
-              <p className="text-4xl font-bold text-amber-400">46 GB</p>
-              <p className="text-sm text-slate-400">de datos expuestos</p>
-            </div>
-            <div className="w-px h-12 bg-slate-700 hidden sm:block"></div>
-            <div className="text-center">
-              <p className="text-4xl font-bold text-red-400">2,700+</p>
-              <p className="text-sm text-slate-400">deudores identificados</p>
-            </div>
-            <div className="w-px h-12 bg-slate-700 hidden sm:block"></div>
-            <div className="text-center">
-              <p className="text-4xl font-bold text-blue-400">531+</p>
-              <p className="text-sm text-slate-400">víctimas de RansomHub</p>
+    <div className="flex h-screen w-screen bg-slate-950 overflow-hidden">
+      {/* PANEL IZQUIERDO - NAVEGACION FIJA */}
+      <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col overflow-hidden">
+        {/* Logo/Titulo */}
+        <div className="p-6 border-b border-slate-800">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-2xl">⚔️</span>
+            <div>
+              <h1 className="text-sm font-bold text-amber-300">INFORME FLONIC</h1>
+              <p className="text-xs text-slate-500">UTFSM 2024</p>
             </div>
           </div>
-
-          <div className="mt-12 p-6 bg-slate-800/50 border border-slate-700 rounded-lg backdrop-blur-sm">
-            <p className="text-sm text-slate-300 mb-4">
-              <span className="font-semibold text-white">24 de octubre de 2024:</span> Ataque ransomware a los sistemas de la UTFSM por el grupo criminal RansomHub. La institución fue víctima de doble extorsión: cifrado de sistemas + exfiltración de datos + amenaza de publicación.
-            </p>
-            <p className="text-xs text-slate-500">
-              Este informe analiza los delitos cometidos, el marco legal aplicable, las responsabilidades de los actores involucrados y las brechas regulatorias evidenciadas por el caso.
-            </p>
-          </div>
         </div>
-      </section>
 
-      {/* SECCIONES DESTACADAS */}
-      <section className="py-16 px-6 max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-white mb-12 text-center">Secciones del Informe</h2>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          {SECTIONS_NAV.filter(s => s.id !== "home").map((section, idx) => (
+        {/* Navegacion - Scroll interno */}
+        <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-2">
+          {SECTIONS.map((section) => (
             <button
               key={section.id}
-              onClick={() => onNavigate(section.id)}
-              className="group p-6 bg-slate-800/50 border border-slate-700 rounded-lg hover:border-amber-500/50 hover:bg-slate-800 transition-all duration-300 text-left"
+              onClick={() => setActiveSection(section.id)}
+              className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 group
+                ${activeSection === section.id
+                  ? `bg-gradient-to-r ${section.id === 0 ? 'from-amber-500 to-amber-600' : 
+                                       section.id === 1 ? 'from-blue-500 to-blue-600' :
+                                       section.id === 2 ? 'from-red-500 to-red-600' :
+                                       section.id === 3 ? 'from-purple-500 to-purple-600' :
+                                       section.id === 4 ? 'from-green-500 to-green-600' :
+                                       section.id === 5 ? 'from-cyan-500 to-cyan-600' :
+                                       section.id === 6 ? 'from-yellow-500 to-yellow-600' :
+                                       'from-slate-600 to-slate-700'} text-slate-950 font-semibold shadow-lg`
+                  : 'bg-slate-800/50 text-slate-300 hover:bg-slate-800 hover:text-slate-100'
+                }`}
             >
-              <div className="flex items-start gap-4">
-                <span className="text-4xl group-hover:scale-110 transition-transform duration-300">{section.icon}</span>
-                <div>
-                  <h3 className="text-lg font-bold text-amber-400 group-hover:text-amber-300 transition-colors">
-                    {section.title}
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-2">
-                    {[
-                      "Descripción general del incidente, datos expuestos y cronología de eventos",
-                      "Análisis de normas legales chilenas e internacionales aplicables",
-                      "Tipificación de delitos bajo Ley 21.459 de Delitos Informáticos",
-                      "Comparación de marcos regulatorios: Chile, UE, ISO 27001",
-                      "Responsabilidades de RansomHub, UTFSM, afiliados y terceros",
-                      "Tipos de datos comprometidos y derechos ARCO de titulares",
-                      "Síntesis de hallazgos y recomendaciones para el futuro",
-                      "Notas técnicas del desarrollo del análisis"
-                    ][idx]}
-                  </p>
+              <div className="flex items-center gap-3">
+                <span className="text-xl">{section.icon}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-semibold opacity-75">{section.number}</p>
+                  <p className="text-sm font-medium truncate">{section.title}</p>
                 </div>
               </div>
             </button>
           ))}
+        </nav>
+
+        {/* Footer */}
+        <div className="p-4 border-t border-slate-800 text-center text-xs text-slate-500">
+          <p>© 2024</p>
+          <p>Análisis Jurídico</p>
         </div>
-      </section>
+      </aside>
 
-      {/* CONTEXTO DEL CASO */}
-      <section className="py-16 px-6 max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="p-6 bg-gradient-to-br from-red-900/20 to-red-900/10 border border-red-900/30 rounded-lg">
-            <h3 className="text-red-400 font-bold mb-3">🔴 El Atacante</h3>
-            <p className="text-sm text-slate-300">
-              <strong>RansomHub</strong> — Grupo de cibercriminales que opera bajo modelo RaaS (Ransomware como Servicio). Emergió en febrero de 2024 y se convirtió en el grupo de ransomware más activo del mundo.
-            </p>
+      {/* PANEL DERECHO - CONTENIDO */}
+      <main className="flex-1 flex flex-col bg-slate-950 overflow-hidden">
+        {/* HEADER - Fijo */}
+        <header className="border-b border-slate-800 bg-gradient-to-r from-slate-900 to-slate-950 px-8 py-6 flex-shrink-0">
+          <div className="max-w-full">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-3xl">{SECTIONS[activeSection].icon}</span>
+              <div>
+                <p className="text-xs font-mono text-slate-500 uppercase tracking-widest">
+                  Sección {SECTIONS[activeSection].number}
+                </p>
+                <h2 className={`text-2xl font-bold ${SECTIONS[activeSection].color}`}>
+                  {SECTIONS[activeSection].title}
+                </h2>
+              </div>
+            </div>
+
+            {/* Hero Data - visible solo en seccion 01 */}
+            {activeSection === 0 && (
+              <div className="grid grid-cols-3 gap-4 mt-6 pt-4 border-t border-slate-700">
+                <div className="bg-slate-800/50 rounded px-3 py-2">
+                  <p className="text-xs text-slate-500 uppercase tracking-wide">Fecha</p>
+                  <p className="text-sm font-semibold text-amber-300">24 oct 2024</p>
+                </div>
+                <div className="bg-slate-800/50 rounded px-3 py-2">
+                  <p className="text-xs text-slate-500 uppercase tracking-wide">Datos Expuestos</p>
+                  <p className="text-sm font-semibold text-amber-300">46 GB</p>
+                </div>
+                <div className="bg-slate-800/50 rounded px-3 py-2">
+                  <p className="text-xs text-slate-500 uppercase tracking-wide">Atacante</p>
+                  <p className="text-sm font-semibold text-amber-300">RansomHub</p>
+                </div>
+              </div>
+            )}
           </div>
+        </header>
 
-          <div className="p-6 bg-gradient-to-br from-blue-900/20 to-blue-900/10 border border-blue-900/30 rounded-lg">
-            <h3 className="text-blue-400 font-bold mb-3">🔵 La Víctima</h3>
-            <p className="text-sm text-slate-300">
-              <strong>UTFSM</strong> — Universidad Técnica Federico Santa María, institución de educación superior de alto prestigio nacional e internacional, con miles de estudiantes y datos personales en sus sistemas.
-            </p>
-          </div>
-
-          <div className="p-6 bg-gradient-to-br from-amber-900/20 to-amber-900/10 border border-amber-900/30 rounded-lg">
-            <h3 className="text-amber-400 font-bold mb-3">🟡 El Impacto</h3>
-            <p className="text-sm text-slate-300">
-              Doble extorsión: cifrado de sistemas + exfiltración masiva de datos + amenaza de publicación. Expone vulnerabilidades del sector educativo chileno en materia de ciberseguridad.
-            </p>
+        {/* CONTENIDO - Con scroll interno */}
+        <div className="flex-1 overflow-y-auto px-8 py-6">
+          <div className="max-w-4xl">
+            <CurrentComponent />
           </div>
         </div>
-      </section>
+      </main>
     </div>
   );
 }
