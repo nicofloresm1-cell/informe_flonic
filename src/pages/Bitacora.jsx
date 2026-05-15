@@ -1,0 +1,55 @@
+import React from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import content from '../docs/08_prompts_flonic.md?raw';
+
+export default function Bitacora() {
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-100 py-16 px-6">
+      <article className="max-w-4xl mx-auto">
+        <div className="mb-12 pb-8 border-b border-slate-700">
+          <h1 className="text-5xl font-bold text-slate-500 mb-4">08 — Bitácora de Desarrollo IA</h1>
+          <p className="text-slate-400 text-lg">Notas técnicas y observaciones de desarrollo</p>
+        </div>
+        
+        <div className="prose prose-invert prose-sm max-w-none
+          prose-headings:text-slate-400
+          prose-headings:font-bold
+          prose-h2:text-2xl
+          prose-h3:text-xl
+          prose-strong:text-slate-300
+          prose-code:bg-slate-800
+          prose-code:text-slate-200
+          prose-code:px-2
+          prose-code:py-1
+          prose-code:rounded
+          prose-a:text-slate-300
+          prose-a:hover:text-slate-200
+          prose-a:underline
+          prose-p:leading-relaxed
+          prose-p:text-slate-300
+          prose-li:text-slate-300
+          prose-blockquote:border-l-4
+          prose-blockquote:border-slate-600
+          prose-blockquote:pl-4
+          prose-blockquote:italic
+          prose-blockquote:text-slate-500
+          prose-table:border-collapse
+          prose-td:border
+          prose-td:border-slate-600
+          prose-td:px-3
+          prose-td:py-2
+          prose-th:border
+          prose-th:border-slate-600
+          prose-th:bg-slate-800
+          prose-th:px-3
+          prose-th:py-2
+        ">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {content}
+          </ReactMarkdown>
+        </div>
+      </article>
+    </div>
+  );
+}
