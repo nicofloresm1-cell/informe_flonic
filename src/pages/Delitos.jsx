@@ -4,34 +4,165 @@ import remarkGfm from 'remark-gfm';
 import content from '../docs/03_delitos_flonic.md?raw';
 
 const markdownComponents = {
-  h1: ({node, ...props}) => <h1 className="text-3xl font-bold text-red-400 mt-6 mb-4 text-left" {...props} />,
-  h2: ({node, ...props}) => <h2 className="text-2xl font-bold text-red-300 mt-5 mb-3 text-left" {...props} />,
-  h3: ({node, ...props}) => <h3 className="text-xl font-bold text-red-200 mt-4 mb-2 text-left" {...props} />,
-  p: ({node, ...props}) => <p className="text-slate-300 leading-relaxed mb-4 text-left" {...props} />,
-  strong: ({node, ...props}) => <strong className="text-red-300 font-semibold" {...props} />,
-  em: ({node, ...props}) => <em className="text-slate-400 italic" {...props} />,
-  code: ({node, ...props}) => <code className="bg-slate-800 text-red-200 px-2 py-1 rounded text-sm font-mono" {...props} />,
-  pre: ({node, ...props}) => <pre className="bg-slate-800 p-4 rounded mb-4 overflow-x-auto" {...props} />,
-  blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-red-500 pl-4 italic text-slate-400 my-4 text-left" {...props} />,
-  a: ({node, ...props}) => <a className="text-orange-400 hover:text-orange-300 underline" {...props} />,
-  ul: ({node, ...props}) => <ul className="list-disc list-inside text-slate-300 mb-4 space-y-1 text-left" {...props} />,
-  ol: ({node, ...props}) => <ol className="list-decimal list-inside text-slate-300 mb-4 space-y-1 text-left" {...props} />,
-  li: ({node, ...props}) => <li className="text-slate-300" {...props} />,
-  table: ({node, ...props}) => <table className="w-full border-collapse my-4 text-sm" {...props} />,
-  thead: ({node, ...props}) => <thead className="bg-slate-800" {...props} />,
-  tbody: ({node, ...props}) => <tbody {...props} />,
-  tr: ({node, ...props}) => <tr className="border-b border-slate-700" {...props} />,
-  th: ({node, ...props}) => <th className="border border-slate-700 bg-slate-800 px-3 py-2 text-left text-red-300 font-semibold" {...props} />,
-  td: ({node, ...props}) => <td className="border border-slate-700 px-3 py-2 text-slate-300" {...props} />,
-  hr: ({node, ...props}) => <hr className="border-t border-slate-700 my-6" {...props} />,
+  h1: ({ node, ...props }) => (
+    <h1
+      className="text-3xl sm:text-4xl lg:text-5xl font-bold text-red-400 mt-12 mb-8 leading-tight break-words"
+      {...props}
+    />
+  ),
+
+  h2: ({ node, ...props }) => (
+    <h2
+      className="text-2xl sm:text-3xl lg:text-4xl font-bold text-red-300 mt-10 mb-6 leading-tight break-words"
+      {...props}
+    />
+  ),
+
+  h3: ({ node, ...props }) => (
+    <h3
+      className="text-xl sm:text-2xl font-bold text-red-200 mt-8 mb-4 leading-tight break-words"
+      {...props}
+    />
+  ),
+
+  p: ({ node, ...props }) => (
+    <p
+      className="text-base sm:text-lg text-slate-300 leading-relaxed mb-6 break-words whitespace-pre-wrap"
+      {...props}
+    />
+  ),
+
+  strong: ({ node, ...props }) => (
+    <strong
+      className="text-red-300 font-semibold"
+      {...props}
+    />
+  ),
+
+  em: ({ node, ...props }) => (
+    <em
+      className="text-slate-400 italic"
+      {...props}
+    />
+  ),
+
+  code: ({ inline, node, ...props }) =>
+    inline ? (
+      <code
+        className="bg-slate-800 text-red-200 px-2 py-1 rounded text-sm font-mono break-words"
+        {...props}
+      />
+    ) : (
+      <code
+        className="text-slate-200 font-mono text-sm sm:text-base"
+        {...props}
+      />
+    ),
+
+  pre: ({ node, ...props }) => (
+    <pre
+      className="bg-slate-900 border border-slate-700 p-5 rounded-xl mb-6 overflow-x-auto w-full"
+      {...props}
+    />
+  ),
+
+  blockquote: ({ node, ...props }) => (
+    <blockquote
+      className="border-l-4 border-red-500 pl-5 italic text-slate-400 my-6"
+      {...props}
+    />
+  ),
+
+  a: ({ node, ...props }) => (
+    <a
+      className="text-yellow-400 hover:text-yellow-300 underline break-all"
+      target="_blank"
+      rel="noopener noreferrer"
+      {...props}
+    />
+  ),
+
+  ul: ({ node, ...props }) => (
+    <ul
+      className="list-disc pl-6 text-slate-300 mb-6 space-y-3 text-base sm:text-lg"
+      {...props}
+    />
+  ),
+
+  ol: ({ node, ...props }) => (
+    <ol
+      className="list-decimal pl-6 text-slate-300 mb-6 space-y-3 text-base sm:text-lg"
+      {...props}
+    />
+  ),
+
+  li: ({ node, ...props }) => (
+    <li
+      className="leading-relaxed break-words"
+      {...props}
+    />
+  ),
+
+  table: ({ node, ...props }) => (
+    <div className="w-full overflow-x-auto my-8">
+      <table
+        className="w-full min-w-[700px] border-collapse"
+        {...props}
+      />
+    </div>
+  ),
+
+  thead: ({ node, ...props }) => (
+    <thead
+      className="bg-slate-800"
+      {...props}
+    />
+  ),
+
+  tbody: ({ node, ...props }) => (
+    <tbody {...props} />
+  ),
+
+  tr: ({ node, ...props }) => (
+    <tr
+      className="border-b border-slate-700"
+      {...props}
+    />
+  ),
+
+  th: ({ node, ...props }) => (
+    <th
+      className="border border-slate-700 bg-slate-800 px-4 py-3 text-left text-red-300 font-semibold text-sm sm:text-base"
+      {...props}
+    />
+  ),
+
+  td: ({ node, ...props }) => (
+    <td
+      className="border border-slate-700 px-4 py-3 text-slate-300 text-sm sm:text-base align-top break-words"
+      {...props}
+    />
+  ),
+
+  hr: ({ node, ...props }) => (
+    <hr
+      className="border-t border-slate-700 my-10"
+      {...props}
+    />
+  ),
 };
 
 export default function Delitos() {
   return (
-    <article className="space-y-6">
-      <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-        {content}
-      </ReactMarkdown>
+    <article className="w-full max-w-none min-w-0">
+      <div className="w-full max-w-none break-words overflow-x-hidden">
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          components={markdownComponents}
+        >
+          {content}
+        </ReactMarkdown>
+      </div>
     </article>
   );
 }
