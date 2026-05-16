@@ -61,19 +61,25 @@ export default function App() {
         }`}
       >
         {/* Logo */}
-        <div className="px-4 py-4 border-b border-slate-800 flex-shrink-0">
-          <div className="flex items-start gap-3">
-            <span className="text-xl flex-shrink-0">⚔️</span>
+        <div className="px-4 py-6 border-b border-slate-800 flex-shrink-0">
+          <div className="flex flex-col items-center text-center gap-4">
 
-            <div className="min-w-0">
-              <h1 className="text-sm font-bold text-amber-300 leading-tight">
-                INFORME FLONIC
+            <span className="text-2xl">
+              ⚔️
+            </span>
+
+            <div className="w-full">
+              <h1 className="text-4xl font-extrabold text-amber-300 leading-none tracking-tight">
+                INFORME
+                <br />
+                FLONIC
               </h1>
 
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 mt-4">
                 UTFSM 2024
               </p>
             </div>
+
           </div>
         </div>
 
@@ -161,7 +167,7 @@ export default function App() {
 
           {/* Datos resumen */}
           {activeSection === 0 && (
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5 pt-4 border-t border-slate-700">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 pt-4 border-t border-slate-700">
               {[
                 { label: 'Fecha', value: '24 Oct 2024' },
                 { label: 'Datos Expuestos', value: '46 GB' },
@@ -169,13 +175,13 @@ export default function App() {
               ].map((item) => (
                 <div
                   key={item.label}
-                  className="bg-slate-800/50 rounded-lg px-4 py-3"
+                  className="bg-slate-800/50 rounded-lg px-3 py-3 sm:px-4"
                 >
                   <p className="text-[10px] text-slate-500 uppercase tracking-wide">
                     {item.label}
                   </p>
 
-                  <p className="text-sm font-semibold text-amber-300 break-words">
+                  <p className="text-base sm:text-sm md:text-base font-semibold text-amber-300 break-words">
                     {item.value}
                   </p>
                 </div>
