@@ -34,6 +34,7 @@ const ACTIVE_GRADIENTS = [
 export default function App() {
   const [activeSection, setActiveSection] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showSummaryCards, setShowSummaryCards] = useState(true);
 
   const contentRef = useRef(null);
 
@@ -47,7 +48,32 @@ export default function App() {
         behavior: 'smooth',
       });
     }
+
+    setShowSummaryCards(true);
   }, [activeSection]);
+
+  // Ocultar tarjetas al bajar en móvil
+  useEffect(() => {
+    const container = contentRef.current;
+
+    if (!container) return;
+
+    const handleScroll = () => {
+      if (window.innerWidth < 640) {
+        if (container.scrollTop > 80) {
+          setShowSummaryCards(false);
+        } else {
+          setShowSummaryCards(true);
+        }
+      }
+    };
+
+    container.addEventListener('scroll', handleScroll);
+
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <div className="flex h-screen w-full bg-slate-950 overflow-hidden">
@@ -166,8 +192,8 @@ export default function App() {
           </div>
 
           {/* Datos resumen */}
-          {activeSection === 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 pt-4 border-t border-slate-700">
+          {activeSection === 0 && showSummaryCards && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5 pt-4 border-t border-slate-700 transition-all duration-300">
               {[
                 { label: 'Fecha', value: '24 Oct 2024' },
                 { label: 'Datos Expuestos', value: '46 GB' },
@@ -175,13 +201,13 @@ export default function App() {
               ].map((item) => (
                 <div
                   key={item.label}
-                  className="bg-slate-800/50 rounded-lg px-3 py-3 sm:px-4"
+                  className="bg-slate-800/50 rounded-lg px-4 py-3"
                 >
                   <p className="text-[10px] text-slate-500 uppercase tracking-wide">
                     {item.label}
                   </p>
 
-                  <p className="text-base sm:text-sm md:text-base font-semibold text-amber-300 break-words">
+                  <p className="text-sm font-semibold text-amber-300 break-words">
                     {item.value}
                   </p>
                 </div>
